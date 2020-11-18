@@ -1435,6 +1435,17 @@ if [[ -x "$cloverPrefpaneDir"/build/Clover.prefPane/Contents/MacOS/Clover && ${N
 # end CloverUpdater package
 fi
 
+# build Icon package
+    echo "================= Icon ================="
+    packagesidentity="${clover_package_identity}"
+    choiceId="Icon"
+    mkdir -p ${PKG_BUILD_DIR}/${choiceId}/Root
+    addTemplateScripts --pkg-rootdir="${PKG_BUILD_DIR}/${choiceId}" ${choiceId}
+    packageRefId=$(getPackageRefId "${packagesidentity}" "${choiceId}")
+    buildpackage "$packageRefId" "${choiceId}" "${PKG_BUILD_DIR}/${choiceId}" "/"
+    addChoice  --start-visible="false" --start-selected="true"  --pkg-refs="$packageRefId" "${choiceId}"
+# End build Icon package
+
 # build post install package
     echo "================= Post ================="
     packagesidentity="${clover_package_identity}"
